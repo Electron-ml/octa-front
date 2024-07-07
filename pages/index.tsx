@@ -25,7 +25,7 @@ export default function IndexPage() {
     </Text>
 
     </Title>
-  <Text size="lg" style={{color: 'white', textAlign: 'center', minWidth: 600}}>We are a team of developers, designers and engineers that are passionate about technology and innovation. We are committed to creating a better world through the use of technology.</Text>
+  <Text size="lg" style={{color: 'white', textAlign: 'center', minWidth: 600}}>A platform for managing, compiling and deployming provable neural networks for time-series predictions. On our platform you can compile trained neural networks for time series predictions, deploy a verifier to prove inference of the network and include predictions of the network into a vault strategy.</Text>
         </Card>      
   </div>
   </Group>
