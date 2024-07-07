@@ -11,6 +11,7 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import {
   deployStrategy,
   depositToStrategy,
+  updateLiqudity,
 } from "../../scripts/smartContractInteractions";
 import { ethers } from "ethers";
 import { useDeployCreate } from '../../my-apis/endpoints/deploy/deploy';
@@ -22,6 +23,7 @@ export function TableReviews({services, isLoading, refetchParent}) {
     const [selectModel, setSelectModel] = useState(0);
     const [isUpdating, setIsUpdating] = useState(false);
     const { primaryWallet } = useDynamicContext();
+    const [isVerifierDelopying, setIsVerifierDelopying] = useState(false);
     const [isDeployingonChain, setIsDeployingonChain] = useState(false);
     const { mutateAsync: deployCreate } = useDeployCreate();
 
@@ -37,6 +39,7 @@ export function TableReviews({services, isLoading, refetchParent}) {
       let strategyAddress = await deployStrategy(signer, verifierAddress);
       const depositAmount = ethers.utils.parseUnits("0.0001", 18);
       let txHash = await depositToStrategy(signer, depositAmount, strategyAddress);
+      let txHash2 = await updateLiqudity(signer, strategyAddress);
       notifications.show({message: `Strategy deployed successfully with address ${strategyAddress}`, color: 'green'});
       setIsDeployingonChain(false);
       }
@@ -122,13 +125,13 @@ export function TableReviews({services, isLoading, refetchParent}) {
         <LoadingOverlay visible={false} />
         <Button mb='sm' onClick={() => {
           //deployCreate({id: selectModel});
-          setIsDeployingonChain(true);
+          setIsVerifierDelopying(true);
           setTimeout(() => {
-            setIsDeployingonChain(false);
+            setIsVerifierDelopying(false);
             notifications.show({message: 'Verifier deployed successfully', color: 'green'
           })
         }, 1500);
-        }} loading={isDeployingonChain} >Deploy verifier</Button>
+        }} loading={isVerifierDelopying} >Deploy verifier</Button>
 
         <br></br>
         <Button mb='sm' onClick={deployMyStrategy} loading={isDeployingonChain}>Deploy strategy</Button>
