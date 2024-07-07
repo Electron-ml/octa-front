@@ -178,7 +178,6 @@ const Problems: React.FC = () => {
                     .map((model) => {
                       return (
                         <Grid.Col
-                          key={model.id}
                           span={12}
                           mt="sm"
                           mb="sm"

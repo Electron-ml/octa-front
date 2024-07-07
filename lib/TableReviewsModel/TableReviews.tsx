@@ -11,7 +11,6 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import {
   deployStrategy,
   depositToStrategy,
-  updateLiqudity,
 } from "../../scripts/smartContractInteractions";
 import { ethers } from "ethers";
 import { useDeployCreate } from '../../api/endpoints/deploy/deploy';
@@ -38,7 +37,6 @@ export function TableReviews({services, isLoading, refetchParent}) {
       let strategyAddress = await deployStrategy(signer, verifierAddress);
       const depositAmount = ethers.utils.parseUnits("0.0001", 18);
       let txHash = await depositToStrategy(signer, depositAmount, strategyAddress);
-      //let txhash1 = await updateLiqudity(signer, strategyAddress);
       notifications.show({message: `Strategy deployed successfully with address ${strategyAddress}`, color: 'green'});
       setIsDeployingonChain(false);
       }
