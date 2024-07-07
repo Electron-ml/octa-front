@@ -25,7 +25,7 @@ const ModelForm = ({actionFunction, problems, types}) => {
   });
 
   return (
-    <Box maxWidth={300} mx="auto">
+    <Box style={{maxWidth: 300}} mx="auto">
       <form onSubmit={form.onSubmit((values) => actionFunction(values))}>
         <TextInput
           withAsterisk
@@ -46,7 +46,6 @@ const ModelForm = ({actionFunction, problems, types}) => {
         <NativeSelect
             mt='xs'
             label="Problem"
-            placeholder="Select a problem..."
             required
             {...form.getInputProps('problem')}
         >
@@ -58,7 +57,6 @@ const ModelForm = ({actionFunction, problems, types}) => {
         <NativeSelect
             mt='xs'
             label="Type"
-            placeholder="Select a type..."
             required
             
             {...form.getInputProps('type')}
@@ -77,7 +75,7 @@ const ModelForm = ({actionFunction, problems, types}) => {
             {...form.getInputProps('file')}
         />
 
-        <Group position="right" mt="lg">
+        <Group mt="lg">
           <Button type="submit">Deploy model</Button>
         </Group>
       </form>

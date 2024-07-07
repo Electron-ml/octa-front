@@ -34,6 +34,7 @@ import classes from './HeaderMegaMenu.module.css';
 import { IconOctagon, IconOctagonFilled, IconOctagonMinus, IconOctagonMinus2 } from '@tabler/icons-react';
 import Logo from '../../public/log.svg';
 import { DynamicContextProvider, DynamicWidget } from '@dynamic-labs/sdk-react-core';
+import { Link } from 'next/link';
 
 const mockdata = [
   {
@@ -104,18 +105,18 @@ export function HeaderMegaMenu() {
           </Title>
           </div>
           <Group h="100%" gap={0} visibleFrom="sm">
-            <a href="/" className={classes.link}>
+            <Link href="/" className={classes.link}>
               Home
-            </a>
-            <a href="/problems" className={classes.link}>
+            </Link>
+            <Link href="/problems" className={classes.link}>
               Problems (training data)
-            </a>
-            <a href="/models" className={classes.link}>
+            </Link>
+            <Link href="/models" className={classes.link}>
               Models
-            </a>
-            <a href="/inference" className={classes.link}>
+            </Link>
+            <Link href="/inference" className={classes.link}>
               Provable inference
-            </a>
+            </Link>
           </Group>
 
           <Group visibleFrom="sm">

@@ -13,7 +13,7 @@ const ProblemForm = ({actionFunction}) => {
   });
 
   return (
-    <Box maxWidth={300} mx="auto">
+    <Box style={{maxWidth: 300}} mx="auto">
       <form onSubmit={form.onSubmit((values) => actionFunction(values))}>
         <TextInput
           withAsterisk
@@ -40,7 +40,7 @@ const ProblemForm = ({actionFunction}) => {
         />
 
 
-        <Group position="right" mt="lg">
+        <Group mt="lg">
           <Button type="submit">Create problem</Button>
         </Group>
       </form>
