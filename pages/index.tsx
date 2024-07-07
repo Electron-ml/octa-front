@@ -27,10 +27,10 @@ export default function IndexPage() {
 
     </Title>
   <Text size="lg" style={{color: 'white', textAlign: 'center', minWidth: 600}}>A platform for managing, compiling and deployming provable neural networks for time-series predictions. On our platform you can compile trained neural networks for time series predictions, deploy a verifier to prove inference of the network and include predictions of the network into a vault strategy.</Text>
-  <br></br>
-  <Text size="sm" style={{color: 'yellow', textAlign: 'center', width: 300, margin: 'auto'}}>Hey! <br></br>This frontend runs without the appropriate backend services because it uses a bunch of AI/ML libraries. Try running locally for the best experience.</Text>
-
         </Card>      
+        <Card shadow="sm" mt='lg' padding="sm" radius="xl" withBorder style={{backgroundColor: '#2e2e2eAA'}}>
+        <Text size="sm" style={{color: '#e64f57', textAlign: 'center', margin: 'auto'}}>Hey! <br></br>This frontend runs without the appropriate backend services because it uses a bunch of AI/ML libraries. You can try running the backend locally (use localhost:8000) and continue to use this web app.</Text>
+        </Card>
   </div>
   </Group>
 
