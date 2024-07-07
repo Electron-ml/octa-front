@@ -12,6 +12,7 @@ export default function Document() {
         <ColorSchemeScript defaultColorScheme="dark" />
       </Head>
       <body>
+        <Main/>
         <NextScript />
         <Script src="https://widgets.arbitrum.nevermined.app/nvm-agent-widget-loader.js" strategy="lazyOnload" />
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" strategy="beforeInteractive" />

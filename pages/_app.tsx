@@ -1,4 +1,3 @@
-"use client";
 import "@mantine/core/styles.css";
 import Head from "next/head";
 import { HeaderMegaMenu } from "../lib/HeaderMegaMenu/HeaderMegaMenu";
