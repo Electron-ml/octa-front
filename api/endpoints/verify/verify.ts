@@ -28,7 +28,7 @@ export const verifyCreate = (
       
       
       return customInstance<VerifyModel>(
-      {url: `/api/verify/${id}`, method: 'POST',
+      {url: `/verify/${id}`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: verifyModel
     },

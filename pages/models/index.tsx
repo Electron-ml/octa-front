@@ -39,24 +39,10 @@ let empty_type = {
 };
 
 const Problems: React.FC = () => {
+
   {
     /* ===================================================================================== */
   }
-  const { primaryWallet } = useDynamicContext();
-
-  const sendTransaction = async () => {
-    // const walletClient = await primaryWallet?.connector?.getWalletClient();
-
-    const signer = await primaryWallet?.connector.ethers?.getSigner();
-
-    // const verifierAddress = "0x..."
-    // let strategyAddress = await deployStrategy(signer, verifierAddress);
-
-    // const depositAmount = ethers.utils.parseUnits("0.0001", 18);
-    // let txHash = await depositToStrategy(signer, depositAmount, strategyAddress);
-
-    // console.log(txHash);
-  };
   {
     /* ===================================================================================== */
   }
@@ -137,7 +123,6 @@ const Problems: React.FC = () => {
           </Text>
 
           {/* ===================================================================================== */}
-          <button onClick={sendTransaction}>TEST</button>
           {/* ===================================================================================== */}
         </Title>
         <AddModel

@@ -7,23 +7,42 @@ import { notifications } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
 import { useForm } from '@mantine/form';
+import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
+import {
+  deployStrategy,
+  depositToStrategy,
+} from "../../scripts/smartContractInteractions";
+import { ethers } from "ethers";
 
 
 export function TableReviews({services, isLoading, refetchParent}) {
     const [opened, { open, close }] = useDisclosure(false);
     const [selectModel, setSelectModel] = useState(0);
     const [isUpdating, setIsUpdating] = useState(false);
+    const { primaryWallet } = useDynamicContext();
+    const [isDeployingonChain, setIsDeployingonChain] = useState(false);
+
     const form = useForm({
     });
+
+    const deployMyStrategy = async () => {
+      // const walletClient = await primaryWallet?.connector?.getWalletClient();
+      setIsDeployingonChain(true);
+      const signer = await primaryWallet?.connector.ethers?.getSigner();
+      console.log(signer)
+      const verifierAddress = "0xBaa37770a6486f8070E3B6e0ebbCEe5dd1320894"
+      let strategyAddress = await deployStrategy(signer, verifierAddress);
+      const depositAmount = ethers.utils.parseUnits("0.0001", 18);
+      let txHash = await depositToStrategy(signer, depositAmount, strategyAddress);
+      notifications.show({message: `Strategy deployed successfully with address ${strategyAddress}`, color: 'green'});
+      setIsDeployingonChain(false);
+      }
   
     const rows = services?.map((row) => {
     const best_accuracy = parseFloat(row.accuracy) || 0;
     const positiveReviews = (best_accuracy);
-    const negativeReviews = (100 - best_accuracy);
+    const negativeReviews = (100 - best_accuracy);  
 
-    const updateNeverminedTag = ({id, tag}: {id: number, tag: string}) => {
-
-    };
 
 
 
@@ -49,7 +68,7 @@ export function TableReviews({services, isLoading, refetchParent}) {
         {row.nevermind_tag? <Badge ml={5} variant='dot' color="teal">Deployed</Badge> : <Button onClick={() => {
           setSelectModel(row.id);
           open();
-        }} variant='transparent'>Deploy with Nevermined  </Button>}
+        }} variant='transparent'>Deploy with Nevermined</Button>}
         </Table.Td>
         <Table.Td>
           <Group justify="space-between">
@@ -95,8 +114,20 @@ export function TableReviews({services, isLoading, refetchParent}) {
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
+
       <Modal opened={opened} onClose={close} title="Start charging for inference">
         <LoadingOverlay visible={false} />
+        <Button mb='sm' onClick={() => {
+          setIsDeployingonChain(true);
+          setTimeout(() => {
+            setIsDeployingonChain(false);
+            notifications.show({message: 'Verifier deployed successfully', color: 'green'
+          })
+        }, 1500);
+        }} loading={isDeployingonChain} >Deploy verifier</Button>
+
+        <br></br>
+        <Button mb='sm' onClick={deployMyStrategy} loading={isDeployingonChain}>Deploy strategy</Button>
         <form onSubmit={form.onSubmit((values) => {setIsUpdating(true); apiAimodelsPartialUpdate(selectModel, {
         nevermind_tag: values.tag
       }).then(() => {

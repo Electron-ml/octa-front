@@ -24,7 +24,7 @@ export const evaluateCreate = (
       
       
       return customInstance<void>(
-      {url: `/api/evaluate/${id}`, method: 'POST'
+      {url: `/evaluate/${id}`, method: 'POST'
     },
       );
     }

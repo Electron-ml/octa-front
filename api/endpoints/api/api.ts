@@ -27,7 +27,8 @@ import type {
   PatchedProblem,
   PatchedType,
   Problem,
-  Type
+  Type,
+  VerifyModel
 } from '../../model'
 import { customInstance } from '../../../services/custom-axios-instance';
 import type { ErrorType, BodyType } from '../../../services/custom-axios-instance';
@@ -373,6 +374,55 @@ const {mutation: mutationOptions} = options ?? {};
       > => {
 
       const mutationOptions = getApiAimodelsDestroyMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    export const apiEvaluateCreate = (
+    id: number,
+ ) => {
+      
+      
+      return customInstance<void>(
+      {url: `/api/evaluate/${id}`, method: 'POST'
+    },
+      );
+    }
+  
+
+
+export const getApiEvaluateCreateMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiEvaluateCreate>>, TError,{id: number}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof apiEvaluateCreate>>, TError,{id: number}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiEvaluateCreate>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  apiEvaluateCreate(id,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiEvaluateCreateMutationResult = NonNullable<Awaited<ReturnType<typeof apiEvaluateCreate>>>
+    
+    export type ApiEvaluateCreateMutationError = ErrorType<unknown>
+
+    export const useApiEvaluateCreate = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiEvaluateCreate>>, TError,{id: number}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiEvaluateCreate>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+
+      const mutationOptions = getApiEvaluateCreateMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -1003,6 +1053,58 @@ const {mutation: mutationOptions} = options ?? {};
       > => {
 
       const mutationOptions = getApiTypesDestroyMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    export const apiVerifyCreate = (
+    id: number,
+    verifyModel: BodyType<VerifyModel>,
+ ) => {
+      
+      
+      return customInstance<VerifyModel>(
+      {url: `/api/verify/${id}`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: verifyModel
+    },
+      );
+    }
+  
+
+
+export const getApiVerifyCreateMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiVerifyCreate>>, TError,{id: number;data: BodyType<VerifyModel>}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof apiVerifyCreate>>, TError,{id: number;data: BodyType<VerifyModel>}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiVerifyCreate>>, {id: number;data: BodyType<VerifyModel>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  apiVerifyCreate(id,data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiVerifyCreateMutationResult = NonNullable<Awaited<ReturnType<typeof apiVerifyCreate>>>
+    export type ApiVerifyCreateMutationBody = BodyType<VerifyModel>
+    export type ApiVerifyCreateMutationError = ErrorType<unknown>
+
+    export const useApiVerifyCreate = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiVerifyCreate>>, TError,{id: number;data: BodyType<VerifyModel>}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof apiVerifyCreate>>,
+        TError,
+        {id: number;data: BodyType<VerifyModel>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiVerifyCreateMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
