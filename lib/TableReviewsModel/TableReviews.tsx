@@ -13,6 +13,8 @@ import {
   depositToStrategy,
 } from "../../scripts/smartContractInteractions";
 import { ethers } from "ethers";
+import { useDeployCreate } from '../../api/endpoints/deploy/deploy';
+import { id } from 'ethers/lib/utils';
 
 
 export function TableReviews({services, isLoading, refetchParent}) {
@@ -21,6 +23,7 @@ export function TableReviews({services, isLoading, refetchParent}) {
     const [isUpdating, setIsUpdating] = useState(false);
     const { primaryWallet } = useDynamicContext();
     const [isDeployingonChain, setIsDeployingonChain] = useState(false);
+    const { mutateAsync: deployCreate } = useDeployCreate();
 
     const form = useForm({
     });
@@ -118,6 +121,7 @@ export function TableReviews({services, isLoading, refetchParent}) {
       <Modal opened={opened} onClose={close} title="Start charging for inference">
         <LoadingOverlay visible={false} />
         <Button mb='sm' onClick={() => {
+          //deployCreate({id: selectModel});
           setIsDeployingonChain(true);
           setTimeout(() => {
             setIsDeployingonChain(false);
