@@ -2,7 +2,7 @@ import { Table, Progress, Anchor, Text, Group, LoadingOverlay, Button, Badge, To
 import classes from './TableReviews.module.css';
 import Link from 'next/link';
 import { useEffect } from 'react';
-import { apiAimodelsPartialUpdate } from '../../api/endpoints/api/api';
+import { apiAimodelsPartialUpdate } from '../../my-apis/endpoints/api/api';
 import { notifications } from '@mantine/notifications';
 import { useDisclosure } from '@mantine/hooks';
 import { useState } from 'react';
@@ -13,7 +13,7 @@ import {
   depositToStrategy,
 } from "../../scripts/smartContractInteractions";
 import { ethers } from "ethers";
-import { useDeployCreate } from '../../api/endpoints/deploy/deploy';
+import { useDeployCreate } from '../../my-apis/endpoints/deploy/deploy';
 import { id } from 'ethers/lib/utils';
 
 

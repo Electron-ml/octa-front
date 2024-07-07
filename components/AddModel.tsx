@@ -1,7 +1,7 @@
 import { useDisclosure } from '@mantine/hooks';
 import { Modal, Button, LoadingOverlay } from '@mantine/core';
 import { IconUpload } from '@tabler/icons-react';
-import { useApiAimodelsCreate } from '../api/endpoints/api/api';
+import { useApiAimodelsCreate } from '../my-apis/endpoints/api/api';
 import { notifications } from '@mantine/notifications';
 import { ModelForm } from './ModelForm';
 import axios from 'axios';

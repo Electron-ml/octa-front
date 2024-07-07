@@ -4,7 +4,7 @@ import { Card, Table, Container, Title, Text, Divider, Button } from '@mantine/c
 import { TableReviews } from '../../lib/TableReviews/TableReviews';
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 import { AddProblem } from '../../components/AddProblem';
-import { useApiProblemsList } from '../../api/endpoints/api/api'
+import { useApiProblemsList } from '../../my-apis/endpoints/api/api'
 
 const Problems: React.FC = () => {
     const [counter, setCounter] = React.useState(0);

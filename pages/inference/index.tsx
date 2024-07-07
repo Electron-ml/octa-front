@@ -4,9 +4,9 @@ import { Card, Table, Container, Title, Text, Divider, Button, Select, JsonInput
 import { TableReviews } from '../../lib/TableReviews/TableReviews';
 import { DynamicWidget } from '@dynamic-labs/sdk-react-core';
 import { AddProblem } from '../../components/AddProblem';
-import { useApiAimodelsList } from '../../api/endpoints/api/api'
+import { useApiAimodelsList } from '../../my-apis/endpoints/api/api'
 import { useState } from 'react';
-import { useVerifyCreate } from '../../api/endpoints/verify/verify';
+import { useVerifyCreate } from '../../my-apis/endpoints/verify/verify';
 import { notifications } from '@mantine/notifications';
 
 const Inference: React.FC = () => {

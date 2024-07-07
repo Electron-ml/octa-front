@@ -19,9 +19,9 @@ import { IconUpload } from "@tabler/icons-react";
 import { DynamicWidget, useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { IconSearch, IconCoins } from "@tabler/icons-react";
 import { AddModel } from "../../components/AddModel";
-import { useApiTypesList } from "../../api/endpoints/api/api";
-import { useApiProblemsList } from "../../api/endpoints/api/api";
-import { useApiAimodelsList } from "../../api/endpoints/api/api";
+import { useApiTypesList } from "../../my-apis/endpoints/api/api";
+import { useApiProblemsList } from "../../my-apis/endpoints/api/api";
+import { useApiAimodelsList } from "../../my-apis/endpoints/api/api";
 import { all } from "axios";
 import {
   deployStrategy,
