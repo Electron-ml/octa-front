@@ -108,13 +108,10 @@ export function HeaderMegaMenu() {
               Home
             </a>
             <a href="/problems" className={classes.link}>
-              Problems (training data)
+              Problems
             </a>
             <a href="/models" className={classes.link}>
               Models
-            </a>
-            <a href="/inference" className={classes.link}>
-              Provable inference
             </a>
           </Group>
 

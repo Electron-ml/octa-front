@@ -22,6 +22,7 @@ const AddModel = ({refetchParent, problems, types}) => {
     formData.append('description', payload.description);
     formData.append('problem', payload.problem);
     formData.append('type', payload.type);
+    formData.append('accuracy', '75.2');
     setIsPending(true);
     axios.post('http://localhost:8000/api/aimodels/', formData, {
         headers: {

@@ -55,18 +55,6 @@ const ModelForm = ({actionFunction, problems, types}) => {
             ))}
         </NativeSelect>
 
-        <NativeSelect
-            mt='xs'
-            label="Type"
-            placeholder="Select a type..."
-            required
-            
-            {...form.getInputProps('type')}
-        >
-            {n_type.map((type) => (
-                <option key={type.id} value={type.id}>{type.name}</option>
-            ))}
-        </NativeSelect>
         <FileInput
             mt='xs'
             label="File in .onnx format"

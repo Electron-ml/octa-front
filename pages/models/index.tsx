@@ -133,7 +133,7 @@ const Problems: React.FC = () => {
         <Divider my="lg" variant="dashed" labelPosition="center" label={""} />
 
         <Tabs defaultValue="search" variant="pills">
-          <Tabs.List justify="center">
+          {/* <Tabs.List justify="center">
             <Tabs.Tab
               value="search"
               leftSection={<IconSearch style={iconStyle} />}
@@ -143,7 +143,7 @@ const Problems: React.FC = () => {
             <Tabs.Tab value="buy" leftSection={<IconCoins style={iconStyle} />}>
               Buy inference
             </Tabs.Tab>
-          </Tabs.List>
+          </Tabs.List> */}
 
           <Tabs.Panel value="search">
             <Group mt={15} grow justify="space-between">

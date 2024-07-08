@@ -12,26 +12,31 @@ import {
   deployStrategy,
   depositToStrategy,
   updateLiqudity,
+  approveTokenSpend,
 } from "../../scripts/smartContractInteractions";
 import { ethers } from "ethers";
 import { useDeployCreate } from '../../my-apis/endpoints/deploy/deploy';
 import { id } from 'ethers/lib/utils';
 import { useContext } from 'react';
 import { GlobalContext } from '../../contexts/globalContext';
+import Inference from "../../pages/inference/index";
 
 
 export function TableReviews({services, isLoading, refetchParent}) {
     const [opened, { open, close }] = useDisclosure(false);
     const [opened2, {open: open2, close:close2}] = useDisclosure(false);
-    const [selectModel, setSelectModel] = useState(0);
+    const [opened3 , {open: open3, close:close3}] = useDisclosure(false);
+    // const [selectModel, setSelectModel] = useState(0);
     const [isUpdating, setIsUpdating] = useState(false);
     const { primaryWallet } = useDynamicContext();
     const [isVerifierDelopying, setIsVerifierDelopying] = useState(false);
     const [isDeployingonChain, setIsDeployingonChain] = useState(false);
     const [isDepositing, setIsDepositing] = useState(false);
+    const [isUpdatingLiqudity, setIsUpdatingLiqudity] = useState(false);
     const { mutateAsync: deployCreate } = useDeployCreate();
-    const { verifierAddress, setVerifierAddress, strategyAddress, setStrategyAddress } = useContext(GlobalContext);
-    const [depositTx, setDepositTx] = useState('');
+    const { verifierAddress, setVerifierAddress, strategyAddress, setStrategyAddress, selectModel, setSelectModel } = useContext(GlobalContext);
+    const [ depositTx, setDepositTx ] = useState('');
+    const [ updateTx, setUpdateTx ] = useState('');
 
     const form = useForm({
     });
@@ -52,13 +57,11 @@ export function TableReviews({services, isLoading, refetchParent}) {
       setIsDepositing(true);
       const depositAmount = ethers.utils.parseUnits("0.0001", 18);
       const signer = await primaryWallet?.connector.ethers?.getSigner();
+      await approveTokenSpend(signer, strategyAddress, depositAmount);
       let txHash = await depositToStrategy(signer, depositAmount, strategyAddress);
+      notifications.show({message: `Deposited successfully with transaction hash ${txHash}`, color: 'green'});
+      setDepositTx(txHash);
       setIsDepositing(false);
-    }
-
-    async function updateLiqudity() {
-      const signer = await primaryWallet?.connector.ethers?.getSigner();
-      let txHash = await updateLiqudity(signer, strategyAddress);
     }
 
     const rows = services?.map((row) => {
@@ -83,9 +86,6 @@ export function TableReviews({services, isLoading, refetchParent}) {
           </Anchor>
         </Table.Td>
         <Table.Td>
-          {row.type_name? <Badge color="teal">{row.type_name}</Badge> : ''}
-        </Table.Td>
-        <Table.Td>
         {strategyAddress !== '' ? <Badge ml={5} variant='dot' color="teal">Deployed</Badge> : <Button onClick={() => {
           setSelectModel(row.id);
           open();
@@ -96,6 +96,12 @@ export function TableReviews({services, isLoading, refetchParent}) {
           setSelectModel(row.id);
           open2();
         }} variant='transparent'>Deposit funds</Button>}
+        </Table.Td>
+        <Table.Td>
+        {false ? <Badge ml={5} variant='dot' color="teal">Deployed</Badge> : <Button onClick={() => {
+          setSelectModel(row.id);
+          open3();
+        }} variant='transparent'>Update liquidity</Button>}
         </Table.Td>
         <Table.Td>
           <Group justify="space-between">
@@ -133,8 +139,9 @@ export function TableReviews({services, isLoading, refetchParent}) {
             <Table.Th>Name</Table.Th>
             <Table.Th>Problem</Table.Th>
             <Table.Th>Description</Table.Th>
-            <Table.Th>Type</Table.Th>
             <Table.Th>Availability</Table.Th>
+            <Table.Th>Deposit</Table.Th>
+            <Table.Th>Update liquidity</Table.Th>
             <Table.Th>Mean Absolute Error</Table.Th>
             
           </Table.Tr>
@@ -142,7 +149,7 @@ export function TableReviews({services, isLoading, refetchParent}) {
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
 
-      <Modal opened={opened} onClose={close} title="Deploy veirifer and strategy" w={"lg"}>
+      <Modal opened={opened} onClose={close} title="Deploy veirifer and strategy" size={"xl"}>
         <LoadingOverlay visible={false} />
         <Button mb='sm' onClick={async () => {
           setIsVerifierDelopying(true);
@@ -154,7 +161,7 @@ export function TableReviews({services, isLoading, refetchParent}) {
           setIsVerifierDelopying(false);
 
           setVerifierAddress(res.verifierAddress);
-        }} loading={isVerifierDelopying} >Deploy verifier</Button>
+        }} loading={isVerifierDelopying} disabled={verifierAddress !== ''}>Deploy verifier</Button>
 
         { verifierAddress &&
           <>
@@ -164,7 +171,7 @@ export function TableReviews({services, isLoading, refetchParent}) {
         }
         <br></br>
         <br></br>
-        <Button mb='sm' onClick={deployMyStrategy} loading={isDeployingonChain}>Deploy strategy</Button>
+        <Button mb='sm' onClick={deployMyStrategy} loading={isDeployingonChain} disabled={strategyAddress !== ''}>Deploy strategy</Button>
 
         { strategyAddress &&
           <>
@@ -175,7 +182,7 @@ export function TableReviews({services, isLoading, refetchParent}) {
         <br></br>
         <br></br>
       </Modal>
-      <Modal opened={opened2} onClose={close2} title="Deposit funds to the strategy" w={"lg"}>
+      <Modal opened={opened2} onClose={close2} title="Deposit funds to the strategy" size={"xl"}>
         <Button onClick={depositFunds} loading={isDepositing}>Deposit</Button>
         { depositTx &&
           <>
@@ -183,6 +190,20 @@ export function TableReviews({services, isLoading, refetchParent}) {
             <a href={`https://sepolia.etherscan.io/tx/${depositTx}`} target="_blank">View on Etherscan</a>
           </>
         }
+        <br></br>
+        <br></br>
+      </Modal>
+
+      <Modal opened={opened3} onClose={close3} title="Deposit funds to the strategy" size={"xl"}>
+        {/* <Button onClick={updateLiqudityLocal} loading={isUpdatingLiqudity} disabled={updateTx !== ''}>Update Liqudity</Button>
+          { updateTx &&
+            <>
+              <Text>Transaction hash: {updateTx}</Text>
+              <a href={`https://sepolia.etherscan.io/tx/${updateTx}`} target="_blank">View on Etherscan</a>
+            </>
+          } */}
+
+          <Inference />
       </Modal>
 
     </Table.ScrollContainer>
