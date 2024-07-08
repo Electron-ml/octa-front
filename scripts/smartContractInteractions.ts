@@ -55,6 +55,36 @@ const deployStrategy = async (signer: any, verifierAddress: string) => {
   return txRes.contractAddress;
 };
 
+async function approveTokenSpend(
+  signer: any,
+  strategyAddress: string,
+  amount: BigNumberish
+) {
+  // const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+  // const privateKey = process.env.PRIVATE_KEY;
+  // const wallet = new ethers.Wallet(privateKey, provider);
+
+  const WETH_ADDR = "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14";
+
+  const abi = [
+    "function approve(address spender, uint256 amount) public returns (bool)",
+  ];
+
+  const contract = new ethers.Contract(WETH_ADDR, abi, signer);
+
+  try {
+    const tx = await contract.approve(strategyAddress, amount);
+    console.log("Transaction hash:", tx.hash);
+
+    // Wait for the transaction to be mined
+    const receipt = await tx.wait();
+
+    return receipt.transactionHash;
+  } catch (error) {
+    console.error("Error approving token spend:", error);
+  }
+}
+
 const depositToStrategy = async (
   signer: any,
   depositAmount: BigNumberish,
@@ -142,4 +172,4 @@ const updateLiqudity = async (signer: any, strategyAddress: string) => {
 // const depositAmount = ethers.utils.parseUnits("0.0001", 18);
 // depositToStrategy(strategyAddress, depositAmount).catch(console.error);
 
-export { deployStrategy, depositToStrategy, updateLiqudity };
+export { deployStrategy, approveTokenSpend, depositToStrategy, updateLiqudity };
