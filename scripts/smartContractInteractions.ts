@@ -42,7 +42,7 @@ const deployStrategy = async (signer: any, verifierAddress: string) => {
     symbol,
     positionManager,
     swapRouter,
-    "0xF26585263D5C18750870314e7Cf16fE2ED3c0A90",
+    verifierAddress, // "0xF26585263D5C18750870314e7Cf16fE2ED3c0A90",
     scalers,
     minAdditions
   );
@@ -65,7 +65,7 @@ const depositToStrategy = async (
   // const wallet = new ethers.Wallet(privateKey, provider);
 
   const strategyContract = new ethers.Contract(
-    "0x56Bc15B5648db1CC68dDac667C50Eba24a1e6Ee6",
+    strategyAddress, // "0x56Bc15B5648db1CC68dDac667C50Eba24a1e6Ee6",
     StrategyABI,
     signer
   );
@@ -93,7 +93,7 @@ const depositToStrategy = async (
 const updateLiqudity = async (signer: any, strategyAddress: string) => {
   // Create a contract instance
   const strategyContract = new ethers.Contract(
-    "0x56Bc15B5648db1CC68dDac667C50Eba24a1e6Ee6",
+    strategyAddress, // "0x56Bc15B5648db1CC68dDac667C50Eba24a1e6Ee6",
     StrategyABI,
     signer
   );

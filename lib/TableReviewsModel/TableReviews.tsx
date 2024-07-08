@@ -16,16 +16,22 @@ import {
 import { ethers } from "ethers";
 import { useDeployCreate } from '../../my-apis/endpoints/deploy/deploy';
 import { id } from 'ethers/lib/utils';
+import { useContext } from 'react';
+import { GlobalContext } from '../../contexts/globalContext';
 
 
 export function TableReviews({services, isLoading, refetchParent}) {
     const [opened, { open, close }] = useDisclosure(false);
+    const [opened2, {open: open2, close:close2}] = useDisclosure(false);
     const [selectModel, setSelectModel] = useState(0);
     const [isUpdating, setIsUpdating] = useState(false);
     const { primaryWallet } = useDynamicContext();
     const [isVerifierDelopying, setIsVerifierDelopying] = useState(false);
     const [isDeployingonChain, setIsDeployingonChain] = useState(false);
+    const [isDepositing, setIsDepositing] = useState(false);
     const { mutateAsync: deployCreate } = useDeployCreate();
+    const { verifierAddress, setVerifierAddress, strategyAddress, setStrategyAddress } = useContext(GlobalContext);
+    const [depositTx, setDepositTx] = useState('');
 
     const form = useForm({
     });
@@ -35,21 +41,30 @@ export function TableReviews({services, isLoading, refetchParent}) {
       setIsDeployingonChain(true);
       const signer = await primaryWallet?.connector.ethers?.getSigner();
       console.log(signer)
-      const verifierAddress = "0xBaa37770a6486f8070E3B6e0ebbCEe5dd1320894"
-      let strategyAddress = await deployStrategy(signer, verifierAddress);
-      const depositAmount = ethers.utils.parseUnits("0.0001", 18);
-      let txHash = await depositToStrategy(signer, depositAmount, strategyAddress);
-      let txHash2 = await updateLiqudity(signer, strategyAddress);
+      // const verifierAddress = "0xBaa37770a6486f8070E3B6e0ebbCEe5dd1320894"
+      let _strategyAddress = await deployStrategy(signer, verifierAddress);
+      setStrategyAddress(_strategyAddress);
       notifications.show({message: `Strategy deployed successfully with address ${strategyAddress}`, color: 'green'});
       setIsDeployingonChain(false);
       }
-  
+    
+    async function depositFunds() {
+      setIsDepositing(true);
+      const depositAmount = ethers.utils.parseUnits("0.0001", 18);
+      const signer = await primaryWallet?.connector.ethers?.getSigner();
+      let txHash = await depositToStrategy(signer, depositAmount, strategyAddress);
+      setIsDepositing(false);
+    }
+
+    async function updateLiqudity() {
+      const signer = await primaryWallet?.connector.ethers?.getSigner();
+      let txHash = await updateLiqudity(signer, strategyAddress);
+    }
+
     const rows = services?.map((row) => {
     const best_accuracy = parseFloat(row.accuracy) || 0;
     const positiveReviews = (best_accuracy);
     const negativeReviews = (100 - best_accuracy);  
-
-
 
 
     return (
@@ -71,10 +86,16 @@ export function TableReviews({services, isLoading, refetchParent}) {
           {row.type_name? <Badge color="teal">{row.type_name}</Badge> : ''}
         </Table.Td>
         <Table.Td>
-        {row.nevermind_tag? <Badge ml={5} variant='dot' color="teal">Deployed</Badge> : <Button onClick={() => {
+        {strategyAddress !== '' ? <Badge ml={5} variant='dot' color="teal">Deployed</Badge> : <Button onClick={() => {
           setSelectModel(row.id);
           open();
-        }} variant='transparent'>Deploy with Nevermined</Button>}
+        }} variant='transparent'>Deploy</Button>}
+        </Table.Td>
+        <Table.Td>
+        {false ? <Badge ml={5} variant='dot' color="teal">Deployed</Badge> : <Button onClick={() => {
+          setSelectModel(row.id);
+          open2();
+        }} variant='transparent'>Deposit funds</Button>}
         </Table.Td>
         <Table.Td>
           <Group justify="space-between">
@@ -121,41 +142,49 @@ export function TableReviews({services, isLoading, refetchParent}) {
         <Table.Tbody>{rows}</Table.Tbody>
       </Table>
 
-      <Modal opened={opened} onClose={close} title="Start charging for inference">
+      <Modal opened={opened} onClose={close} title="Deploy veirifer and strategy" w={"lg"}>
         <LoadingOverlay visible={false} />
-        <Button mb='sm' onClick={() => {
-          //deployCreate({id: selectModel});
+        <Button mb='sm' onClick={async () => {
           setIsVerifierDelopying(true);
-          setTimeout(() => {
-            setIsVerifierDelopying(false);
-            notifications.show({message: 'Verifier deployed successfully', color: 'green'
-          })
-        }, 1500);
+
+          let res:any = await deployCreate({id: selectModel});
+
+          console.log(res);
+          notifications.show({message: "successfully deployed", color: 'green'});
+          setIsVerifierDelopying(false);
+
+          setVerifierAddress(res.verifierAddress);
         }} loading={isVerifierDelopying} >Deploy verifier</Button>
 
+        { verifierAddress &&
+          <>
+            <Text>Verifier address: {verifierAddress}</Text>
+            <a href={`https://sepolia.etherscan.io/address/${verifierAddress}`} target="_blank">View on Etherscan</a>
+          </>
+        }
+        <br></br>
         <br></br>
         <Button mb='sm' onClick={deployMyStrategy} loading={isDeployingonChain}>Deploy strategy</Button>
-        <form onSubmit={form.onSubmit((values) => {setIsUpdating(true); apiAimodelsPartialUpdate(selectModel, {
-        nevermind_tag: values.tag
-      }).then(() => {
-      
-      close();
-      notifications.show({message: 'Tag updated successfully', color: 'green'});
-      if (refetchParent) refetchParent();
-      }).catch((error: any) => {
-      notifications.show({message: `Tag update failed: ${JSON.stringify(error.response?.data)}`, color: 'red'});
-      })})}>
-          <TextInput
-            withAsterisk
-            label="Nevermined deployment tag"
-            placeholder="did:nv:b85024..."
-            {...form.getInputProps('tag')}
-          />
-          <Group position="right" mt="lg">
-            <Button type="submit">Publish deployment</Button>
-          </Group>
-        </form>
+
+        { strategyAddress &&
+          <>
+            <Text>Strategy address: {strategyAddress}</Text>
+            <a href={`https://sepolia.etherscan.io/address/${strategyAddress}`} target="_blank">View on Etherscan</a>
+          </>
+        }
+        <br></br>
+        <br></br>
       </Modal>
+      <Modal opened={opened2} onClose={close2} title="Deposit funds to the strategy" w={"lg"}>
+        <Button onClick={depositFunds} loading={isDepositing}>Deposit</Button>
+        { depositTx &&
+          <>
+            <Text>Transaction hash: {depositTx}</Text>
+            <a href={`https://sepolia.etherscan.io/tx/${depositTx}`} target="_blank">View on Etherscan</a>
+          </>
+        }
+      </Modal>
+
     </Table.ScrollContainer>
   );
 }

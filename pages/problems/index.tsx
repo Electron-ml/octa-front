@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import { Card, Table, Container, Title, Text, Divider, Button } from '@mantine/core';
 import { TableReviews } from '../../lib/TableReviews/TableReviews';

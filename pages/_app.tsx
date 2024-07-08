@@ -26,6 +26,8 @@ import {
 } from "@tanstack/react-query";
 import "@mantine/notifications/styles.css";
 import "../public/overrides.css";
+import { GlobalProvider } from "../contexts/globalContext";
+
 
 const theme = createTheme({
   fontFamily: "Open Sans, sans-serif",
@@ -97,6 +99,7 @@ export default function App({ Component, pageProps }: any) {
       }
     >
       <MantineProvider theme={theme} forceColorScheme="dark">
+        <GlobalProvider>
         <ModalsProvider>
           <Head>
             <title>Octagon AI - Where your AI project lives.</title>
@@ -143,6 +146,7 @@ export default function App({ Component, pageProps }: any) {
           </DynamicContextProvider>
           <Notifications />
         </ModalsProvider>
+        </GlobalProvider>
       </MantineProvider>
     </QueryClientProvider>
   );
