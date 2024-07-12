@@ -4,9 +4,6 @@ import { HeaderMegaMenu } from "../lib/HeaderMegaMenu/HeaderMegaMenu";
 import {
   MantineProvider,
   createTheme,
-  MantineColorsTuple,
-  Button,
-  useMantineTheme,
   Container,
 } from "@mantine/core";
 import { FooterLinks } from "../lib/FooterLinks/FooterLinks";
@@ -31,20 +28,20 @@ import { GlobalProvider } from "../contexts/globalContext";
 
 const theme = createTheme({
   fontFamily: "Open Sans, sans-serif",
-  colors: {
-    blue: [
-      "#ffeaec",
-      "#fdd4d6",
-      "#f4a7ac",
-      "#ec777e",
-      "#e64f57",
-      "#e3353f",
-      "#e22732",
-      "#c91a25",
-      "#b31220",
-      "#9e0419",
-    ],
-  },
+  // colors: {
+  //   blue: [
+  //     "#ffeaec",
+  //     "#fdd4d6",
+  //     "#f4a7ac",
+  //     "#ec777e",
+  //     "#e64f57",
+  //     "#e3353f",
+  //     "#e22732",
+  //     "#c91a25",
+  //     "#b31220",
+  //     "#9e0419",
+  //   ],
+  // },
 });
 
 export default function App({ Component, pageProps }: any) {
@@ -142,7 +139,7 @@ export default function App({ Component, pageProps }: any) {
                 </div>
               </div>
             </Container>
-            <FooterLinks />
+            {/* <FooterLinks /> */}
           </DynamicContextProvider>
           <Notifications />
         </ModalsProvider>

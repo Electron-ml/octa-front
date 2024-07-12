@@ -1,6 +1,4 @@
-import { Button, Group, Container, Text, Title, Card } from "@mantine/core";
-import { relative } from "path";
-import { useEffect, useRef } from 'react';
+import { Group, Text, Title, Card } from "@mantine/core";
 import Logo from '../public/log.svg';
 import Image from 'next/image';
 
