@@ -34,6 +34,7 @@ import classes from './HeaderMegaMenu.module.css';
 import { IconOctagon, IconOctagonFilled, IconOctagonMinus, IconOctagonMinus2 } from '@tabler/icons-react';
 import Logo from '../../public/log.svg';
 import { DynamicContextProvider, DynamicWidget } from '@dynamic-labs/sdk-react-core';
+import Link from 'next/link';
 
 const mockdata = [
   {
@@ -98,21 +99,21 @@ export function HeaderMegaMenu() {
           <div style={{display: 'flex', cursor: 'pointer' }} onClick={() => window.location.href = '/'}>
           <Image src={Logo} alt="Logo" width={40} height={40} />
           <Title ml={10} order={2}  style={{ fontWeight: 900, textAlign: 'right', alignContent: 'space-evenly', fontSize: '1.5rem'}}>
-          <Text inherit variant="gradient" gradient={{ from: '#E22732', to: '#FFFFFF', }} size='inherit'> 
+          <Text inherit variant="gradient" gradient={{ from: '#3EADEC', to: '#236286', }} size='inherit'> 
                 Octagon AI
           </Text>
           </Title>
           </div>
           <Group h="100%" gap={0} visibleFrom="sm">
-            <a href="/" className={classes.link}>
+            <Link href="/" className={classes.link}>
               Home
-            </a>
-            <a href="/problems" className={classes.link}>
+            </Link>
+            <Link href="/problems" className={classes.link}>
               Problems
-            </a>
-            <a href="/models" className={classes.link}>
+            </Link>
+            <Link href="/models" className={classes.link}>
               Models
-            </a>
+            </Link>
           </Group>
 
           <Group visibleFrom="sm">

@@ -68,7 +68,7 @@ export function FooterLinks() {
                 inherit
                 ml={5}
                 variant="gradient"
-                gradient={{ from: '#E22732', to: '#FFFFFF' }}
+                gradient={{ from: '#3EADEC', to: '#236286' }}
                 
               >
                 Octagon AI

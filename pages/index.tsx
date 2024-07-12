@@ -17,7 +17,7 @@ export default function IndexPage() {
             inherit
             ml="lg"
             variant="gradient"
-            gradient={{ from: '#E22732', to: '#FFFFFF' }}
+            gradient={{ from: '#3EADEC', to: '#236286' }}
           >
             Octagon AI
           </Text>
