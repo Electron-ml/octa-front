@@ -1,16 +1,27 @@
-import { Table, Progress, Anchor, Text, Group, LoadingOverlay, Button } from '@mantine/core';
+import {
+  Table,
+  Progress,
+  Anchor,
+  Text,
+  Group,
+  LoadingOverlay,
+  Button,
+} from '@mantine/core';
 import classes from './TableReviews.module.css';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
-export function TableReviews({services, isLoading}: {services: any, isLoading: boolean}) {
-
-
-    const rows = services?.map((row: any) => {
+export function TableReviews({
+  services,
+  isLoading,
+}: {
+  services: any;
+  isLoading: boolean;
+}) {
+  const rows = services?.map((row: any) => {
     const best_accuracy = parseFloat(row.best_accuracy) || 0;
-    const positiveReviews = (best_accuracy);
-    const negativeReviews = (100 - best_accuracy);
-
+    const positiveReviews = best_accuracy;
+    const negativeReviews = 100 - best_accuracy;
 
     return (
       <Table.Tr key={row.name}>
@@ -19,16 +30,16 @@ export function TableReviews({services, isLoading}: {services: any, isLoading: b
             {row.name}
           </Anchor>
         </Table.Td>
-        <Table.Td><Link href={'asd'}>View ({row.total_models})</Link></Table.Td>
+        <Table.Td>
+          <Link href={'asd'}>View ({row.total_models})</Link>
+        </Table.Td>
         <Table.Td>
           <Anchor component="button" fz="sm">
             {row.description}
           </Anchor>
         </Table.Td>
         <Table.Td>
-          <Link href={row.data_url}>
-            Download
-          </Link>
+          <Link href={row.data_url}>Download</Link>
         </Table.Td>
         <Table.Td>
           <Group justify="space-between">
@@ -45,7 +56,6 @@ export function TableReviews({services, isLoading}: {services: any, isLoading: b
               value={positiveReviews}
               color="teal"
             />
-
             <Progress.Section
               className={classes.progressSection}
               value={negativeReviews}
@@ -54,9 +64,9 @@ export function TableReviews({services, isLoading}: {services: any, isLoading: b
           </Progress.Root>
         </Table.Td>
         <Table.Td>
-          <Link href={`problems/${row.name}`}>
-            Link
-          </Link>
+          <Button>
+            <Link href={`problems/${row.name}`}>View Problem</Link>
+          </Button>
         </Table.Td>
       </Table.Tr>
     );
@@ -73,8 +83,6 @@ export function TableReviews({services, isLoading}: {services: any, isLoading: b
             <Table.Th>Description</Table.Th>
             <Table.Th>Dataset</Table.Th>
             <Table.Th>Current Best Result</Table.Th>
-            <Table.Th>Link</Table.Th>
-            
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
