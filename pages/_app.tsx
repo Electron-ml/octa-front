@@ -60,7 +60,7 @@ export default function App({ Component, pageProps }: any) {
     let vantaEffect;
     const loadVanta = () => {
       if (vantaRef.current && !vantaEffect) {
-        vantaEffect = window.VANTA.NET({
+        vantaEffect = window.VANTA.GLOBE({
           el: vantaRef.current,
           mouseControls: true,
           touchControls: true,
@@ -69,8 +69,8 @@ export default function App({ Component, pageProps }: any) {
           minWidth: 200.0,
           scale: 1.0,
           scaleMobile: 1.0,
-          color: 0xe64f57,
-          backgroundColor: 0x242424,
+          color: 0x3EADEC,
+          backgroundColor: 0x1b1b22,
         });
       }
     };
