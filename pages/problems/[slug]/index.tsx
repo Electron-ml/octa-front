@@ -10,10 +10,24 @@ import {
   Button,
 } from '@mantine/core';
 import { Card, Container, Title, Divider } from '@mantine/core';
+import { useApiProblemsRetrieve } from '../../../my-apis/endpoints/api/api';
 
 const Problems: React.FC = () => {
   // Extract the slug from the URL parameters
+  const [counter, setCounter] = React.useState(0);
+
   const router = useRouter();
+  const {
+    data: services,
+    error,
+    isLoading,
+    refetch,
+  } = useApiProblemsRetrieve(Number(router.query.slug), {
+    format: 'json',
+    counter: counter,
+  });
+
+  console.log(services);
 
   return (
     <Container id="abc" style={{ width: '100%' }} p="md">
@@ -42,32 +56,13 @@ const Problems: React.FC = () => {
             variant="gradient"
             gradient={{ from: '#FFFFFF', to: '#FFFFFF' }}
           >
-            {router.query.slug}
+            {services?.name}
           </Text>
         </Title>
         <Divider my="lg" variant="dashed" labelPosition="center" label={''} />
       </Card>
       <Card>
-        <Group justify="space-between">
-          <Text fz="xs" c="teal" fw={700}>
-            {positiveReviews.toFixed(0)}%
-          </Text>
-          <Text fz="xs" c="red" fw={700}>
-            {negativeReviews.toFixed(0)}%
-          </Text>
-        </Group>
-        <Progress.Root>
-          <Progress.Section
-            className={classes.progressSection}
-            value={positiveReviews}
-            color="teal"
-          />
-          <Progress.Section
-            className={classes.progressSection}
-            value={negativeReviews}
-            color="red"
-          />
-        </Progress.Root>
+        <Text>{services?.description}</Text>
       </Card>
     </Container>
   );

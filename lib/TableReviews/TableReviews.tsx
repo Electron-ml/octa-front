@@ -65,7 +65,7 @@ export function TableReviews({
         </Table.Td>
         <Table.Td>
           <Button>
-            <Link href={`problems/${row.name}`}>View Problem</Link>
+            <Link href={`problems/${row.id}`}>View Problem</Link>
           </Button>
         </Table.Td>
       </Table.Tr>
