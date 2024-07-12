@@ -3,10 +3,10 @@ import classes from './TableReviews.module.css';
 import Link from 'next/link';
 import { useEffect } from 'react';
 
-export function TableReviews({services, isLoading}) {
+export function TableReviews({services, isLoading}: {services: any, isLoading: boolean}) {
 
 
-    const rows = services?.map((row) => {
+    const rows = services?.map((row: any) => {
     const best_accuracy = parseFloat(row.best_accuracy) || 0;
     const positiveReviews = (best_accuracy);
     const negativeReviews = (100 - best_accuracy);
@@ -53,6 +53,11 @@ export function TableReviews({services, isLoading}) {
             />
           </Progress.Root>
         </Table.Td>
+        <Table.Td>
+          <Link href={`problems/${row.name}`}>
+            Link
+          </Link>
+        </Table.Td>
       </Table.Tr>
     );
   });
@@ -63,11 +68,12 @@ export function TableReviews({services, isLoading}) {
       <Table verticalSpacing="xs">
         <Table.Thead>
           <Table.Tr>
-            <Table.Th>Problem</Table.Th>
+            <Table.Th>Name</Table.Th>
             <Table.Th>Models</Table.Th>
             <Table.Th>Description</Table.Th>
             <Table.Th>Dataset</Table.Th>
-            <Table.Th>Mean Absolute Error</Table.Th>
+            <Table.Th>Current Best Result</Table.Th>
+            <Table.Th>Link</Table.Th>
             
           </Table.Tr>
         </Table.Thead>

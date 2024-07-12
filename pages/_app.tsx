@@ -28,20 +28,21 @@ import { GlobalProvider } from "../contexts/globalContext";
 
 const theme = createTheme({
   fontFamily: "Open Sans, sans-serif",
-  // colors: {
-  //   blue: [
-  //     "#ffeaec",
-  //     "#fdd4d6",
-  //     "#f4a7ac",
-  //     "#ec777e",
-  //     "#e64f57",
-  //     "#e3353f",
-  //     "#e22732",
-  //     "#c91a25",
-  //     "#b31220",
-  //     "#9e0419",
-  //   ],
-  // },
+  colors: {
+    blue: [
+      "#ffeaec",
+      "#fdd4d6",
+      "#f4a7ac",
+      "#ec777e",
+      "#e64f57",
+      "#e3353f",
+      "#e22732",
+      "#c91a25",
+      "#b31220",
+      "#9e0419",
+    ],
+  },
+  
 });
 
 export default function App({ Component, pageProps }: any) {
@@ -54,7 +55,7 @@ export default function App({ Component, pageProps }: any) {
   const vantaRef = useRef(null);
 
   useEffect(() => {
-    let vantaEffect;
+    let vantaEffect: any;
     const loadVanta = () => {
       if (vantaRef.current && !vantaEffect) {
         vantaEffect = window.VANTA.GLOBE({
@@ -115,12 +116,11 @@ export default function App({ Component, pageProps }: any) {
             }}
           >
             <HeaderMegaMenu />
-            <Container fluid>
               <div
                 ref={vantaRef}
                 style={{
                   width: "100%",
-                  height: "90vh",
+                  height: "95vh",
                   position: "relative",
                   display: "flex",
                   overflow: "scroll",
@@ -138,7 +138,6 @@ export default function App({ Component, pageProps }: any) {
                   <Component {...pageProps} />
                 </div>
               </div>
-            </Container>
             {/* <FooterLinks /> */}
           </DynamicContextProvider>
           <Notifications />
