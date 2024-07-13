@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { Tabs, Container, Title, Divider, Text, Card } from '@mantine/core';
 import { useApiProblemsRetrieve } from '../../../my-apis/endpoints/api/api';
 import SampleDescription from './sample-description';
+import Leaderboard from './leaderboard';
 
 const Problems: React.FC = () => {
   // Extract the slug from the URL parameters
@@ -63,7 +64,7 @@ const Problems: React.FC = () => {
               <SampleDescription />
             </Tabs.Panel>
             <Tabs.Panel value="leaderboard">
-              <Text>Leaderboard</Text>
+              <Leaderboard />
             </Tabs.Panel>
           </div>
         </Tabs>
