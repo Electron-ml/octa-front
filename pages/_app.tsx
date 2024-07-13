@@ -20,6 +20,8 @@ import {
 import '@mantine/notifications/styles.css';
 import '../public/overrides.css';
 import { GlobalProvider } from '../contexts/globalContext';
+import './globals.css';
+import type { AppProps } from 'next/app';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
@@ -39,7 +41,7 @@ const theme = createTheme({
   },
 });
 
-export default function App({ Component, pageProps }: any) {
+export default function App({ Component, pageProps }: AppProps) {
   const cssOverrides = `
   .button--padding-large {
     padding: 0.66rem 1rem;
