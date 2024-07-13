@@ -1,48 +1,42 @@
-import "@mantine/core/styles.css";
-import Head from "next/head";
-import { HeaderMegaMenu } from "../lib/HeaderMegaMenu/HeaderMegaMenu";
-import {
-  MantineProvider,
-  createTheme,
-  Container,
-} from "@mantine/core";
-import { FooterLinks } from "../lib/FooterLinks/FooterLinks";
-import { useEffect, useRef } from "react";
+import '@mantine/core/styles.css';
+import Head from 'next/head';
+import { HeaderMegaMenu } from '../lib/HeaderMegaMenu/HeaderMegaMenu';
+import { MantineProvider, createTheme, Container } from '@mantine/core';
+import { FooterLinks } from '../lib/FooterLinks/FooterLinks';
+import { useEffect, useRef } from 'react';
 import {
   DynamicContextProvider,
   DynamicWidget,
-} from "@dynamic-labs/sdk-react-core";
-import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-import { EthersExtension } from "@dynamic-labs/ethers-v5";
-import { Notifications } from "@mantine/notifications";
-import { ModalsProvider } from "@mantine/modals";
+} from '@dynamic-labs/sdk-react-core';
+import { EthereumWalletConnectors } from '@dynamic-labs/ethereum';
+import { EthersExtension } from '@dynamic-labs/ethers-v5';
+import { Notifications } from '@mantine/notifications';
+import { ModalsProvider } from '@mantine/modals';
 import {
   QueryClient,
   QueryClientProvider,
   useQuery,
-} from "@tanstack/react-query";
-import "@mantine/notifications/styles.css";
-import "../public/overrides.css";
-import { GlobalProvider } from "../contexts/globalContext";
-
+} from '@tanstack/react-query';
+import '@mantine/notifications/styles.css';
+import '../public/overrides.css';
+import { GlobalProvider } from '../contexts/globalContext';
 
 const theme = createTheme({
-  fontFamily: "Open Sans, sans-serif",
+  fontFamily: 'Open Sans, sans-serif',
   colors: {
     blue: [
-      "#ffeaec",
-      "#fdd4d6",
-      "#f4a7ac",
-      "#ec777e",
-      "#e64f57",
-      "#e3353f",
-      "#e22732",
-      "#c91a25",
-      "#b31220",
-      "#9e0419",
+      '#ffeaec',
+      '#fdd4d6',
+      '#f4a7ac',
+      '#ec777e',
+      '#e64f57',
+      '#e3353f',
+      '#e22732',
+      '#c91a25',
+      '#b31220',
+      '#9e0419',
     ],
   },
-  
 });
 
 export default function App({ Component, pageProps }: any) {
@@ -67,14 +61,14 @@ export default function App({ Component, pageProps }: any) {
           minWidth: 200.0,
           scale: 1.0,
           scaleMobile: 1.0,
-          color: 0x3EADEC,
+          color: 0x3eadec,
           backgroundColor: 0x1b1b22,
         });
       }
     };
 
     // Load Vanta after the scripts are loaded
-    if (typeof window !== "undefined" && window.VANTA) {
+    if (typeof window !== 'undefined' && window.VANTA) {
       loadVanta();
     }
 
@@ -98,50 +92,58 @@ export default function App({ Component, pageProps }: any) {
     >
       <MantineProvider theme={theme} forceColorScheme="dark">
         <GlobalProvider>
-        <ModalsProvider>
-          <Head>
-            <title>Octagon AI - Where your AI project lives.</title>
-            <meta
-              name="viewport"
-              content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
-            />
-            <link rel="shortcut icon" href="/favicon.svg" />
-          </Head>
-          <DynamicContextProvider
-            settings={{
-              environmentId: "a2dea8be-028b-4848-a65f-a57fe56a8770",
-              walletConnectors: [EthereumWalletConnectors],
-              walletConnectorExtensions: [EthersExtension],
-              cssOverrides: cssOverrides,
-            }}
-          >
-            <HeaderMegaMenu />
+          <ModalsProvider>
+            <Head>
+              <title>Octagon AI - Where your AI project lives.</title>
+              <meta
+                name="viewport"
+                content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+              />
+              <link rel="shortcut icon" href="/favicon.svg" />
+            </Head>
+            <DynamicContextProvider
+              settings={{
+                environmentId: 'a2dea8be-028b-4848-a65f-a57fe56a8770',
+                walletConnectors: [EthereumWalletConnectors],
+                walletConnectorExtensions: [EthersExtension],
+                cssOverrides: cssOverrides,
+              }}
+            >
+              <HeaderMegaMenu />
               <div
                 ref={vantaRef}
                 style={{
-                  width: "100%",
-                  height: "95vh",
-                  position: "relative",
-                  display: "flex",
-                  overflow: "scroll",
+                  position: 'fixed',
+                  width: '100%',
+                  height: '100vh',
+                  zIndex: -1,
                 }}
               >
                 <div
                   style={{
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    justifyContent: "center",
+                    position: 'relative',
+                    width: '100%',
+                    minHeight: '100vh',
+                    overflow: 'auto',
                   }}
                 >
-                  <Component {...pageProps} />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      width: '100%',
+                      height: '100%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Component {...pageProps} />
+                  </div>
                 </div>
               </div>
-            {/* <FooterLinks /> */}
-          </DynamicContextProvider>
-          <Notifications />
-        </ModalsProvider>
+              {/* <FooterLinks /> */}
+            </DynamicContextProvider>
+            <Notifications />
+          </ModalsProvider>
         </GlobalProvider>
       </MantineProvider>
     </QueryClientProvider>
