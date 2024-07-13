@@ -18,7 +18,7 @@ const Problems: React.FC = () => {
 
   const router = useRouter();
   const {
-    data: services,
+    data: service,
     error,
     isLoading,
     refetch,
@@ -26,8 +26,6 @@ const Problems: React.FC = () => {
     format: 'json',
     counter: counter,
   });
-
-  console.log(services);
 
   return (
     <Container id="abc" style={{ width: '100%' }} p="md">
@@ -56,13 +54,16 @@ const Problems: React.FC = () => {
             variant="gradient"
             gradient={{ from: '#FFFFFF', to: '#FFFFFF' }}
           >
-            {services?.name}
+            {service?.name}
           </Text>
         </Title>
         <Divider my="lg" variant="dashed" labelPosition="center" label={''} />
-      </Card>
-      <Card>
-        <Text>{services?.description}</Text>
+        <Text
+          size="lg"
+          style={{ color: 'white', textAlign: 'center', minWidth: 600 }}
+        >
+          {service?.description}
+        </Text>
       </Card>
     </Container>
   );
