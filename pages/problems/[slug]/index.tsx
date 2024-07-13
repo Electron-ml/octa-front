@@ -58,17 +58,14 @@ const Problems: React.FC = () => {
             <Tabs.Tab value="leaderboard">Leaderboard</Tabs.Tab>
           </Tabs.List>
 
-          <Tabs.Panel value="description">
-            <div className="min-h-screen flex items-center justify-center bg-gray-100">
-              <h1 className="text-4xl font-bold text-blue-500">
-                Hello, Tailwind CSS!
-              </h1>
-            </div>
-            <SampleDescription />
-          </Tabs.Panel>
-          <Tabs.Panel value="leaderboard">
-            <Text>Leaderboard</Text>
-          </Tabs.Panel>
+          <div className="py-8 px-4">
+            <Tabs.Panel value="description">
+              <SampleDescription />
+            </Tabs.Panel>
+            <Tabs.Panel value="leaderboard">
+              <Text>Leaderboard</Text>
+            </Tabs.Panel>
+          </div>
         </Tabs>
       </Card>
     </Container>

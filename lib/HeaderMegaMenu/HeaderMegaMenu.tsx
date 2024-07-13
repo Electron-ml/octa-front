@@ -31,9 +31,17 @@ import {
   IconChevronDown,
 } from '@tabler/icons-react';
 import classes from './HeaderMegaMenu.module.css';
-import { IconOctagon, IconOctagonFilled, IconOctagonMinus, IconOctagonMinus2 } from '@tabler/icons-react';
+import {
+  IconOctagon,
+  IconOctagonFilled,
+  IconOctagonMinus,
+  IconOctagonMinus2,
+} from '@tabler/icons-react';
 import Logo from '../../public/log.svg';
-import { DynamicContextProvider, DynamicWidget } from '@dynamic-labs/sdk-react-core';
+import {
+  DynamicContextProvider,
+  DynamicWidget,
+} from '@dynamic-labs/sdk-react-core';
 import Link from 'next/link';
 
 const mockdata = [
@@ -70,7 +78,8 @@ const mockdata = [
 ];
 
 export function HeaderMegaMenu() {
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const theme = useMantineTheme();
 
@@ -78,7 +87,10 @@ export function HeaderMegaMenu() {
     <UnstyledButton className={classes.subLink} key={item.title}>
       <Group wrap="nowrap" align="flex-start">
         <ThemeIcon size={34} variant="default" radius="md">
-          <item.icon style={{ width: rem(22), height: rem(22) }} color={theme.colors.blue[6]} />
+          <item.icon
+            style={{ width: rem(22), height: rem(22) }}
+            color={theme.colors.blue[6]}
+          />
         </ThemeIcon>
         <div>
           <Text size="sm" fw={500}>
@@ -93,36 +105,55 @@ export function HeaderMegaMenu() {
   ));
 
   return (
-    <Box pb={0}>
+    <Box p={10}>
       <header className={classes.header}>
-        <Group justify="space-between" h="100%">
-          <div style={{display: 'flex', cursor: 'pointer' }} onClick={() => window.location.href = '/'}>
-          <Image src={Logo} alt="Logo" width={40} height={40} />
-          <Title ml={10} order={2}  style={{ fontWeight: 900, textAlign: 'right', alignContent: 'space-evenly', fontSize: '1.5rem'}}>
-          <Text inherit variant="gradient" gradient={{ from: '#3EADEC', to: '#236286', }} size='inherit'> 
-                Octagon AI
-          </Text>
-          </Title>
-          </div>
-          <Group h="100%" gap={0} visibleFrom="sm">
-            <Link href="/" className={classes.link}>
-              Home
-            </Link>
-            <Link href="/problems" className={classes.link}>
-              Problems
-            </Link>
-            <Link href="/models" className={classes.link}>
-              Models
-            </Link>
+        <div className="p-10">
+          <Group justify="space-between" h="100%">
+            <div
+              style={{ display: 'flex', cursor: 'pointer' }}
+              onClick={() => (window.location.href = '/')}
+            >
+              <Image src={Logo} alt="Logo" width={40} height={40} />
+              <Title
+                ml={10}
+                order={2}
+                style={{
+                  fontWeight: 900,
+                  textAlign: 'right',
+                  alignContent: 'space-evenly',
+                  fontSize: '1.5rem',
+                }}
+              >
+                <Text
+                  inherit
+                  variant="gradient"
+                  gradient={{ from: '#3EADEC', to: '#236286' }}
+                  size="inherit"
+                >
+                  Octagon AI
+                </Text>
+              </Title>
+            </div>
+            <Group h="100%" gap={0} visibleFrom="sm">
+              <Link href="/" className={classes.link}>
+                Home
+              </Link>
+              <Link href="/problems" className={classes.link}>
+                Problems
+              </Link>
+            </Group>
+
+            <Group visibleFrom="sm">
+              <DynamicWidget />
+            </Group>
+
+            <Burger
+              opened={drawerOpened}
+              onClick={toggleDrawer}
+              hiddenFrom="sm"
+            />
           </Group>
-
-          <Group visibleFrom="sm">
-            <DynamicWidget />
-
-          </Group>
-
-          <Burger opened={drawerOpened} onClick={toggleDrawer} hiddenFrom="sm" />
-        </Group>
+        </div>
       </header>
 
       <Drawer
